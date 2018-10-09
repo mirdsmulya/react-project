@@ -30,5 +30,5 @@ var AuthorsList = React.createClass({
 			</div>
 		);
 	}
-});
+}); 
 module.exports = AuthorsList;
