@@ -49325,13 +49325,17 @@ var App = React.createClass({displayName: "App",
 			React.createElement("div", null, 
 				React.createElement(Header, null), 
 				React.createElement("div", {className: "container-fluid"}), 
+				React.createElement(RouteHandler, null), 		 
+				React.createElement("div", {className: "container-fluid"}, 
 				React.createElement(RouteHandler, null)
 
-			
+			)
+
 			)
 		);
 	}
 });
+
 module.exports = App;
 
 },{"./common/header":206,"jquery":1,"react":197,"react-router":33}],202:[function(require,module,exports){
@@ -49538,7 +49542,6 @@ var notFoundPage = React.createClass({displayName: "notFoundPage",
 module.exports = notFoundPage;
 
 },{"react":197,"react-router":33}],209:[function(require,module,exports){
-
 'use strict';
 //$ = jQuery = require('jquery');
 var React = require('react');
@@ -49559,8 +49562,6 @@ React.render(<Home />, document.getElementById('app'));
 */
 
 },{"./route":210,"react":197,"react-router":33}],210:[function(require,module,exports){
-
-
 var React = require('react');
 var Router = require('react-router');
 
@@ -49568,7 +49569,6 @@ var DefaultRoute = Router.DefaultRoute;
 
 var Route = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
-
 var Redirect = Router.Redirect;
 
 

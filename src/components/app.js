@@ -15,19 +15,16 @@ var App = React.createClass({
 		return (
 			<div>
 				<Header />
-<<<<<<< HEAD
 				<div className="container-fluid"></div>
-				<RouteHandler />
-
-			
-=======
+				<RouteHandler />		 
 				<div className="container-fluid">
 				<RouteHandler />
 
 			</div>
->>>>>>> b1a93bbf0107ea41a505e6f804c735f0b7b9948a
+
 			</div>
 		);
 	}
 });
+
 module.exports = App;
