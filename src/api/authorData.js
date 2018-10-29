@@ -9,7 +9,7 @@ module.exports = {
 
 		},
 		{
-			id: 'asep-dulloh',
+			id: 'asep-dullss',
 			firstName: 'Asep',
 			lastName: 'Kersadireja',
 			status: 'Failed'

@@ -1,9 +1,23 @@
 "use strict";
 
 var React = require('react');
+var Router = require('react-router');
+
+
 
 var About = React.createClass({
-	render: function() {
+	/*
+	static: {
+		willTransitionTo: function(transition, params, query ,callback) {
+			if (!confirm('Are you sure want to read a page that\'s will surprise you?')) {
+				transition.About();
+			} else {
+				callback();
+			}
+		}
+	}
+	*/	
+	render: function(){
 		return (
 			<div>
 				<h1>About</h1>
@@ -17,8 +31,8 @@ var About = React.createClass({
 						<li>ESlint</li>
 						<li>Bootstrap</li>
 						<li>HTML</li>
-						<li>Node</li>
-						<li>Flux</li>
+						<li>Node</li>	
+						
 					</ul>
 				</p>
 
