@@ -6,17 +6,15 @@ var Router = require('react-router');
 
 
 var About = React.createClass({
-	/*
 	static: {
-		willTransitionTo: function(transition, params, query ,callback) {
+		willTransitionTo: function(transition, params, query, callback) {
 			if (!confirm('Are you sure want to read a page that\'s will surprise you?')) {
-				transition.About();
+				transition.about();
 			} else {
 				callback();
 			}
 		}
-	}
-	*/	
+	},
 	render: function(){
 		return (
 			<div>

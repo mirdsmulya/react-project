@@ -49269,17 +49269,15 @@ var Router = require('react-router');
 
 
 var About = React.createClass({displayName: "About",
-	/*
 	static: {
-		willTransitionTo: function(transition, params, query ,callback) {
+		willTransitionTo: function(transition, params, query, callback) {
 			if (!confirm('Are you sure want to read a page that\'s will surprise you?')) {
-				transition.About();
+				transition.about();
 			} else {
 				callback();
 			}
 		}
-	}
-	*/	
+	},
 	render: function(){
 		return (
 			React.createElement("div", null, 
@@ -49325,11 +49323,10 @@ var App = React.createClass({displayName: "App",
 			React.createElement("div", null, 
 				React.createElement(Header, null), 
 				React.createElement("div", {className: "container-fluid"}), 
-				React.createElement(RouteHandler, null), 		 
-				React.createElement("div", {className: "container-fluid"}, 
-				React.createElement(RouteHandler, null)
+				React.createElement(RouteHandler, null)		 
+				
 
-			)
+			
 
 			)
 		);
@@ -49341,9 +49338,8 @@ module.exports = App;
 },{"./common/header":206,"jquery":1,"react":197,"react-router":33}],202:[function(require,module,exports){
 'use strict';
 
-
 var React = require('react');
-
+//var Input = require('../common/testInput');
 var authorForm = React.createClass({displayName: "authorForm",
 	render: function() {
 		return (
@@ -49351,19 +49347,22 @@ var authorForm = React.createClass({displayName: "authorForm",
 			React.createElement("h1", null, "Manage Author"), 
 			React.createElement("label", {htmlFor: "firstname"}, "First Name"), 
 			React.createElement("input", {type: "text", 
-				name: "firsname", 
+				name: "firstname", 
 				className: "form-control", 
 				placeholder: "First Name", 
 				ref: "firstname", 
-				value: ""}), 
+				onChange: this.props.onChange, 
+				value: this.props.author.firstName}), 
 			React.createElement("br", null), 
 
 			React.createElement("label", {htmlFor: "lastName"}, "Last Name"), 
 			React.createElement("input", {type: "text", 
+				name: "lastname", 
 				className: "form-control", 
 				placeholder: "Last Name", 
 				ref: "lastname", 
-				value: ""}), 
+				onChange: this.props.onChange, 
+				value: this.props.author.lastName}), 
 			React.createElement("br", null), 
 
 			React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default"})
@@ -49455,11 +49454,23 @@ var Router = require('react-router');
 var AuthorForm = require('./authorForm');
 
 var ManageAuthorPage = React.createClass({displayName: "ManageAuthorPage",
+	getInitialState: function() {
+		return {
+			author: {id: '', firstName: '', lastName: ''}
+		};
+	},
+	setAuthorState: function(event) {
+		var field = event.target.name;
+		var value = event.target.value;
+		this.state.authir[field] = value;
+		return this.setState({author: this.state.author});
+
+	},
 	render: function() {
 		return (
-	
-		
-		React.createElement(AuthorForm, null)
+		React.createElement(AuthorForm, {
+		author: this.state.author, 
+		onChange: this.setAuthorState})
 
 		);
 	}
