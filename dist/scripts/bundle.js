@@ -49700,7 +49700,7 @@ var App = React.createClass({displayName: "App",
 				React.createElement(Header, null), 
 				React.createElement("div", {className: "container-fluid"}), 
 				React.createElement(RouteHandler, null)		 
-				
+					
 
 			
 
@@ -49747,13 +49747,15 @@ module.exports = authorForm;
 "use strict";
 
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var AuthorsList = React.createClass({displayName: "AuthorsList",
 	render: function() {
 		var createAuthorRow = function(author) {
 			return (
 				React.createElement("tr", {key: author.id}, 
-					React.createElement("td", null, React.createElement("a", {href: "/#authors/" + author.id}, author.id)), 
+					React.createElement("td", null, React.createElement(Link, {to: "manageAuthor", params: {id: author.id}}, author.id)), 
 					React.createElement("td", null, author.firstName, " ", author.lastName, " "), 
 					React.createElement("td", null, " ", author.status, " ")
 				)
@@ -49779,7 +49781,7 @@ var AuthorsList = React.createClass({displayName: "AuthorsList",
 }); 
 module.exports = AuthorsList;
 
-},{"react":197}],205:[function(require,module,exports){
+},{"react":197,"react-router":33}],205:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -49830,19 +49832,42 @@ var ManageAuthorPage = React.createClass({displayName: "ManageAuthorPage",
 	mixins: [
 		Router.Navigation
 	],	
+
+	statics: {
+		willTransitionFrom: function(transition, component) {
+			if (component.state.dirty && !confirm('Are you serious want to leave this page without saving?')) {
+				transition.abort();
+			} 
+
+		}
+	},
+
+
 	getInitialState: function() {
 		return {
 			author: {id: '', firstName: '', lastName: ''},
-			errors: {}
+			errors: {},
+			dirty: false
+
 		};
 	},
+
+	componentWillMount: function(){
+		var authorId = this.props.params.id;// from the path /author:d
+		if (authorId) {
+			this.setState({author: AuthorApi.getAuthorById(authorId)});
+		}
+	},
 	setAuthorState: function(event) {
+		this.setState({dirty: true});
 		var field = event.target.name;
 		var value = event.target.value;
 		this.state.author[field] = value;
 		return this.setState({author: this.state.author});
 
 	},
+
+
 
 	authorIsValid: function(event) {
 		var authorStatus = true;
@@ -49867,6 +49892,7 @@ var ManageAuthorPage = React.createClass({displayName: "ManageAuthorPage",
 
 		}
 		AuthorApi.saveAuthor(this.state.author);
+		this.setState({dirty: false });
 		Toastr.success('Author Saved!');
 		this.transitionTo('authors');
 
@@ -50037,6 +50063,7 @@ var routes = (
       React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
       React.createElement(Route, {name: "authors", handler: require('./components/authors/authorPage')}), 
       React.createElement(Route, {name: "addAuthor", path: "author", handler: require('./components/authors/manageAuthorPage')}), 
+      React.createElement(Route, {name: "manageAuthor", path: "author/:id", handler: require('./components/authors/manageAuthorPage')}), 
       React.createElement(Route, {name: "about", handler: require('./components/about/aboutPage')}), 
       React.createElement(NotFoundRoute, {handler: require('./components/notFoundPage')}), 
       React.createElement(Redirect, {from: "awful", to: "authors"})
