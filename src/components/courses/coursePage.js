@@ -3,15 +3,16 @@
 var React = require('react');
 var AuthorApi = require('../../api/authorApi');
 
-var AuthorActions = require('../../actions/authorActions');
+//var CourseActions = require('../../actions/courseActions');
+var CourseApi = require('../../api/courseApi');
 var AuthorStore = require('../../stores/authorStore'); 
-var AuthorList = require('./authorList');
+var CourseList = require('./courseList');
 var Link = require('react-router').Link;
 
-var Authors = React.createClass({
+var Courses = React.createClass({
 	getInitialState: function() {
 		return {
-			authors: AuthorApi.getAllAuthors()
+			courses: CourseApi.getAllCourses()
 		};
 
 	},
@@ -29,12 +30,12 @@ var Authors = React.createClass({
 
 		return (
 			<div>
-				<h1>Authors</h1>
-				<Link to="addAuthor" className="btn btn-default">Add Author</Link>
-				<AuthorList authors={this.state.authors} />
+				<h1>Course</h1>
+				<Link to="addCourse" className="btn btn-default">Add Course</Link>
+				<CourseList courses={this.state.courses} />
 			
 			</div>
 		);
 	}
 });
-module.exports = Authors;
+module.exports = Courses;

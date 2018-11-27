@@ -2,14 +2,14 @@
 
 var React = require('react');
 var Router = require('react-router');
-var AuthorForm = require('./authorForm');
+var courseForm = require('./courseForm');
 var Toastr = require('toastr');
 
 var AuthorActions = require('../../actions/authorActions');
 var AuthorStore = require('../../stores/authorStore'); 
 var AuthorApi = require('../../api/authorApi');
 //console.log({this.props.params.id});
-var ManageAuthorPage = React.createClass({
+var ManageCoursePage = React.createClass({
 	
 	mixins: [
 		Router.Navigation
@@ -24,60 +24,60 @@ var ManageAuthorPage = React.createClass({
 		}
 	},
 
-/*
+
 	getInitialState: function() {
 		return {
-			author: {id: '', firstName: '', lastName: ''},
+			course: {title: '', author: '', category: '', length: ''},
 			errors: {},
 			dirty: false
 
 		};
-	}, */
+	}, 
 
 	componentWillMount: function(){
-		var authorId = this.props.params.id;// from the path /author:d
-		if (authorId) {
-			this.setState({author: AuthorApi.getAuthorById(authorId)});
+		var courseTitle = this.props.params.title;// from the path /author:d
+		if (courseTitle) {
+			this.setState({course: AuthorApi.getAuthorById(courseTitle)});
 			//this.setState({author: AuthorStore.getAuthorById(authorId)});
 		} 
 	}, 
 	
-	setAuthorState: function(event) {
+	setCourseState: function(event) {
 		this.setState({dirty: true});
 		var field = event.target.name;
 		var value = event.target.value;
-		this.state.author[field] = value;
-		return this.setState({author: this.state.author});
+		this.state.course[field] = value;
+		return this.setState({course: this.state.course});
 
 	},
 
 								
-	authorIsValid: function(event) {
-		var authorStatus = true;
+	courseIsValid: function(event) {
+		var courseStatus = true;
 		this.state.errors = {}; //clear any previous error
 
-		if (this.state.author.firstName.length < 3) {
-			this.state.errors.firstName = "Please the input must be more than 2 character!";
-			authorStatus = false;
+		if (this.state.course.title.length < 3) {
+			this.state.errors.title = "Please the input must be more than 2 character!";
+			courseStatus = false;
 		}
-		if (this.state.author.lastName.length < 3) {		
-			this.state.errors.lastName = "Please the input must be more than 2 character!";
-			authorStatus = false;
+		if (this.state.course.author.length < 3) {		
+			this.state.errors.author = "Please the input must be more than 2 character!";
+			courseStatus = false;
 		}
 		this.setState({errors: this.state.errors});
-		return authorStatus;
+		return courseStatus;
 	},
 
-	saveAuthor: function(event) {
+	saveCourse: function(event) {
 		event.preventDefault();
-		if (!this.authorIsValid()) {
+		if (!this.courseIsValid()) {
 			return;
 
 		}
-		AuthorActions.createAuthor(this.state.author);
+		AuthorActions.createAuthor(this.state.course);
 		this.setState({dirty: false });
 		Toastr.success('Author Saved!');
-		this.transitionTo('authors');
+		this.transitionTo('course');
 
 	
 	},
@@ -85,13 +85,13 @@ var ManageAuthorPage = React.createClass({
 	render: function() {
 		return (
 		<AuthorForm 
-		author={this.state.author}
-		onChange={this.setAuthorState} 
-		onSave={this.saveAuthor}
+		course={this.state.course}
+		onChange={this.setCourseState} 
+		onSave={this.saveCourse}
 		errors={this.state.errors} />
 
 		);
 	} 
 });
 
-module.exports = ManageAuthorPage;
+module.exports = ManageCoursePage;

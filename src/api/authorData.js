@@ -1,6 +1,6 @@
 module.exports = {
 	authors: 
-	[
+	[ 
 		{
 			id: 'mirdan-indahouse',
 			firstName: 'Mirdun',
